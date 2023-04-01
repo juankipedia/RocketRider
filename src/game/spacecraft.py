@@ -23,17 +23,21 @@ class Spacecraft(pygame.sprite.Sprite):
         self.image = pygame.transform.rotate(self.original_image, self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)
 
-    def update(self, keys_pressed):
+    def update(self, keys_pressed, world_width, world_height):
         if keys_pressed[K_UP] and self.rect.top > 0:
             self.rect.y -= self.speed
-        if keys_pressed[K_DOWN] and self.rect.bottom < self.screen_height:
+        if keys_pressed[K_DOWN] and self.rect.bottom < world_height:
             self.rect.y += self.speed
         if keys_pressed[K_LEFT] and self.rect.left > 0:
             self.rect.x -= self.speed
-        if keys_pressed[K_RIGHT] and self.rect.right < self.screen_width:
+        if keys_pressed[K_RIGHT] and self.rect.right < world_width:
             self.rect.x += self.speed
 
         if keys_pressed[K_a]:
             self.rotate(5)
         if keys_pressed[K_d]:
             self.rotate(-5)
+
+        self.rect.x = max(0, min(world_width - self.rect.width, self.rect.x))
+        self.rect.y = max(0, min(world_height - self.rect.height, self.rect.y))
+
