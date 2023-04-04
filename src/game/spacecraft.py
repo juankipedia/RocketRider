@@ -1,3 +1,4 @@
+import math
 import pygame
 from pygame.locals import *
 
@@ -40,4 +41,3 @@ class Spacecraft(pygame.sprite.Sprite):
 
         self.rect.x = max(0, min(world_width - self.rect.width, self.rect.x))
         self.rect.y = max(0, min(world_height - self.rect.height, self.rect.y))
-
