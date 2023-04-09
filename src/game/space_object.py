@@ -7,7 +7,9 @@ class SpaceObject(pygame.sprite.Sprite):
         super().__init__()
         self.original_image = pygame.image.load(image_path).convert()
         width, height = self.original_image.get_size()
-        self.original_image = pygame.transform.scale(self.original_image, (width // 4, height // 4))
+        self.image_scale_ratio = 3
+        self.original_image = pygame.transform.scale(self.original_image, 
+                                                     (width // self.image_scale_ratio, height // self.image_scale_ratio))
         self.original_image = self.original_image.convert_alpha()
         self.image = self.original_image
         self.rect = self.image.get_rect()
