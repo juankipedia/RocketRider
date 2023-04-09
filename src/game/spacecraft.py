@@ -1,30 +1,14 @@
-import math
-import pygame
 from pygame.locals import *
+from space_object import SpaceObject
 
-
-class Spacecraft(pygame.sprite.Sprite):
+class Spacecraft(SpaceObject):
     def __init__(self, screen_width, screen_height):
-        super().__init__()
-        self.original_image = pygame.image.load('../resources/spacecraft.png').convert()
-        width, height = self.original_image.get_size()
-        self.original_image = pygame.transform.scale(self.original_image, (width // 4, height // 4))
-        self.original_image = self.original_image.convert_alpha()
-        self.image = self.original_image
-        self.rect = self.image.get_rect()
-        self.rect.x = screen_width // 2
-        self.rect.y = screen_height // 2
+        super().__init__('../resources/spacecraft.png', screen_width, screen_height)
         self.speed = 5
-        self.angle = 0
-        self.screen_width = screen_width
-        self.screen_height = screen_height
-
-    def rotate(self, angle):
-        self.angle += angle
-        self.image = pygame.transform.rotate(self.original_image, self.angle)
-        self.rect = self.image.get_rect(center=self.rect.center)
 
     def update(self, keys_pressed, world_width, world_height):
+        if keys_pressed[K_UP] and self.rect.top > 0:
+            self.rect.y -= self.speed
         if keys_pressed[K_UP] and self.rect.top > 0:
             self.rect.y -= self.speed
         if keys_pressed[K_DOWN] and self.rect.bottom < world_height:
@@ -39,5 +23,4 @@ class Spacecraft(pygame.sprite.Sprite):
         if keys_pressed[K_d]:
             self.rotate(-5)
 
-        self.rect.x = max(0, min(world_width - self.rect.width, self.rect.x))
-        self.rect.y = max(0, min(world_height - self.rect.height, self.rect.y))
+        super().update(keys_pressed, world_width, world_height)

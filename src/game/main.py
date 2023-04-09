@@ -4,6 +4,7 @@ import pygame
 import json
 from pygame.locals import *
 from spacecraft import *
+from enemy import *
 from projectile import *
 
 with open('config.json', 'r') as file:
@@ -37,9 +38,11 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('RocketRider')
     spacecraft = Spacecraft(WORLD_WIDTH // 2, WORLD_HEIGHT // 2)
+    enemy = Enemy(WORLD_WIDTH // 2, WORLD_HEIGHT // 2)
     all_sprites = pygame.sprite.Group()
     projectiles = pygame.sprite.Group()
     all_sprites.add(spacecraft)
+    all_sprites.add(enemy)
 
     image_path = os.path.join(os.path.dirname(__file__), '..', 'resources', 'world.jpg')
     background_image = pygame.image.load(image_path).convert()
