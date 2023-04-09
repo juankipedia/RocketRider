@@ -1,7 +1,7 @@
 import random
 from pygame.locals import *
 from space_object import SpaceObject
-
+from projectile import *
 
 class Enemy(SpaceObject):
     def __init__(self, screen_width, screen_height):
@@ -12,6 +12,7 @@ class Enemy(SpaceObject):
         self.move_direction = 'STAY'
         self.rotation_counter = 0
         self.target_angle = 0
+        self.shoot_timer = random.randint(30, 120)
 
     def update(self, keys_pressed, world_width, world_height):
         if self.move_counter <= 0:
@@ -36,6 +37,16 @@ class Enemy(SpaceObject):
         self.rotate(angle_change)
 
         self.move_counter -= 1
+        self.shoot_timer -= 1
 
         super().update(keys_pressed, world_width, world_height)
 
+    def shoot(self, n_projectiles=10, angle_range=30):
+        base_angle = self.angle - angle_range / 2
+        angle_step = angle_range / (n_projectiles - 1)
+        projectiles = []
+        for i in range(n_projectiles):
+            angle = base_angle + angle_step * i
+            proj = Projectile(self.rect.centerx, self.rect.centery, angle, color=(255, 0, 0))
+            projectiles.append(proj)
+        return projectiles

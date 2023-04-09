@@ -34,6 +34,7 @@ def get_camera_position(spacecraft, SCREEN_WIDTH, SCREEN_HEIGHT, WORLD_WIDTH, WO
 
     return round(x), round(y)
 
+
 def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('RocketRider')
@@ -63,6 +64,12 @@ def main():
             proj = Projectile(spacecraft.rect.centerx, spacecraft.rect.centery, spacecraft.angle)
             projectiles.add(proj)
             all_sprites.add(proj)
+        
+        if enemy.shoot_timer <= 0:
+            enemy_projectiles = enemy.shoot()
+            projectiles.add(*enemy_projectiles)
+            all_sprites.add(*enemy_projectiles)
+            enemy.shoot_timer = random.randint(30, 120)
 
         all_sprites.update(keys_pressed, WORLD_WIDTH, WORLD_HEIGHT)
         camera_x, camera_y = get_camera_position(spacecraft, SCREEN_WIDTH, SCREEN_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT, camera_x, camera_y)
