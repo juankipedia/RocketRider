@@ -6,6 +6,7 @@ class Projectile(pygame.sprite.Sprite):
         self.image = pygame.Surface((5, 5))
         self.image.fill(color)
         self.rect = self.image.get_rect()
+        self.rect.inflate_ip(-1, -1)
         self.rect.x = x
         self.rect.y = y
         self.angle = angle
@@ -17,5 +18,5 @@ class Projectile(pygame.sprite.Sprite):
         self.rect.x += dx
         self.rect.y -= dy
 
-        if self.rect.x < 0 or self.rect.x > world_width or self.rect.y < 0 or self.rect.y > world_height:
+        if self.rect.x < 0 or self.rect.x >= world_width or self.rect.y < 0 or self.rect.y >= world_height:
             self.kill()

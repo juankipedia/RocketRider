@@ -13,6 +13,8 @@ class Enemy(SpaceObject):
         self.rotation_counter = 0
         self.target_angle = 0
         self.shoot_timer = random.randint(30, 120)
+        self.max_hp = 50
+        self.hp = self.max_hp
 
     def update(self, keys_pressed, world_width, world_height):
         if self.move_counter <= 0:

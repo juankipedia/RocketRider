@@ -5,6 +5,8 @@ class Spacecraft(SpaceObject):
     def __init__(self, screen_width, screen_height):
         super().__init__('../resources/spacecraft.png', screen_width, screen_height)
         self.speed = 5
+        self.max_hp = 100
+        self.hp = self.max_hp
 
     def update(self, keys_pressed, world_width, world_height):
         if keys_pressed[K_UP] and self.rect.top > 0:
