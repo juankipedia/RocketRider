@@ -9,7 +9,6 @@ from projectile import *
 from config import SCREEN_WIDTH, SCREEN_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT
 from camera import get_camera_position
 
-
 pygame.init()
 
 def main():
@@ -39,7 +38,7 @@ def main():
 
         keys_pressed = pygame.key.get_pressed()
 
-        if keys_pressed[K_SPACE]:
+        if keys_pressed[K_SPACE] and spacecraft.alive():
             proj = Projectile(spacecraft.rect.centerx, spacecraft.rect.centery, spacecraft.angle)
             player_projectiles.add(proj)
             all_sprites.add(proj)
