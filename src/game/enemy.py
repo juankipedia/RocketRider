@@ -2,9 +2,10 @@ import random
 from pygame.locals import *
 from space_object import SpaceObject
 from projectile import *
+from state import PatrollingState, AttackingState
 
 class Enemy(SpaceObject):
-    def __init__(self, screen_width, screen_height):
+    def __init__(self, screen_width, screen_height, player, enemy_projectiles, all_sprites):
         super().__init__('../resources/enemy.png', screen_width, screen_height)
         self.rect.x = random.randint(0, screen_width - self.rect.width)
         self.rect.y = random.randint(0, screen_height - self.rect.height)
@@ -17,33 +18,32 @@ class Enemy(SpaceObject):
         self.hp = self.max_hp
         self.acceleration = 0.05
         self.drag_coefficient = 0.98
+        self.state = PatrollingState(self)
+        self.state.enter()
+        self.attack_range = 300
+        self.target = player
+        self.projectile_group = enemy_projectiles
+        self.all_sprites = all_sprites 
+
+    def get_distance_to_object(self, other_object):
+        dx = self.rect.centerx - other_object.rect.centerx
+        dy = self.rect.centery - other_object.rect.centery
+        return (dx ** 2 + dy ** 2) ** 0.5
 
     def update(self, keys_pressed, world_width, world_height):
-        if self.move_counter <= 0:
-            self.move_direction = random.choice(['UP', 'DOWN', 'LEFT', 'RIGHT', 'STAY'])
-            self.move_counter = random.randint(50, 100)
+        distance_to_player = self.get_distance_to_object(self.target)
+        if distance_to_player < self.attack_range and not isinstance(self.state, AttackingState):
+            self.state.exit()
+            self.state = AttackingState(self)
+            self.state.enter()
+        elif distance_to_player >= self.attack_range and not isinstance(self.state, PatrollingState):
+            self.state.exit()
+            self.state = PatrollingState(self)
+            self.state.enter()
 
-        if self.move_direction == 'UP':
-            self.velocity_y -= self.acceleration
-        elif self.move_direction == 'DOWN':
-            self.velocity_y += self.acceleration
-        elif self.move_direction == 'LEFT':
-            self.velocity_x -= self.acceleration
-        elif self.move_direction == 'RIGHT':
-            self.velocity_x += self.acceleration
-
-        if self.rotation_counter <= 0:
-            self.rotation_counter = random.randint(30, 120)
-            self.target_angle = random.randint(-90, 90)
-
-        angle_diff = self.target_angle - self.angle
-        angle_change = angle_diff * 0.05
-        self.rotate(angle_change)
-
-        self.move_counter -= 1
-        self.shoot_timer -= 1
-
+        self.state.update()
         super().update(keys_pressed, world_width, world_height)
+
 
     def shoot(self, n_projectiles=10, angle_range=30):
         base_angle = self.angle - angle_range / 2
