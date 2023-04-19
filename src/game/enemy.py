@@ -15,20 +15,22 @@ class Enemy(SpaceObject):
         self.shoot_timer = random.randint(30, 120)
         self.max_hp = 50
         self.hp = self.max_hp
+        self.acceleration = 0.05
+        self.drag_coefficient = 0.98
 
     def update(self, keys_pressed, world_width, world_height):
         if self.move_counter <= 0:
             self.move_direction = random.choice(['UP', 'DOWN', 'LEFT', 'RIGHT', 'STAY'])
             self.move_counter = random.randint(50, 100)
 
-        if self.move_direction == 'UP' and self.rect.top > 0:
-            self.rect.y -= self.speed
-        elif self.move_direction == 'DOWN' and self.rect.bottom < world_height:
-            self.rect.y += self.speed
-        elif self.move_direction == 'LEFT' and self.rect.left > 0:
-            self.rect.x -= self.speed
-        elif self.move_direction == 'RIGHT' and self.rect.right < world_width:
-            self.rect.x += self.speed
+        if self.move_direction == 'UP':
+            self.velocity_y -= self.acceleration
+        elif self.move_direction == 'DOWN':
+            self.velocity_y += self.acceleration
+        elif self.move_direction == 'LEFT':
+            self.velocity_x -= self.acceleration
+        elif self.move_direction == 'RIGHT':
+            self.velocity_x += self.acceleration
 
         if self.rotation_counter <= 0:
             self.rotation_counter = random.randint(30, 120)

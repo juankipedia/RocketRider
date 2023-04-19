@@ -12,13 +12,17 @@ class SpaceObject(pygame.sprite.Sprite):
         self.original_image = self.original_image.convert_alpha()
         self.image = self.original_image
         self.rect = self.image.get_rect()
-        self.rect.inflate_ip(-5, -5)  # Añade esta línea para ajustar el rectángulo
+        self.rect.inflate_ip(-5, -5)
         self.rect.x = screen_width // 2
         self.rect.y = screen_height // 2
-        self.speed = 2
+        self.speed = 1
         self.angle = 0
         self.screen_width = screen_width
         self.screen_height = screen_height
+        self.acceleration = 0
+        self.velocity_x = 0
+        self.velocity_y = 0
+        self.drag_coefficient = 1
 
     def rotate(self, angle):
         self.angle += angle
@@ -27,6 +31,12 @@ class SpaceObject(pygame.sprite.Sprite):
 
 
     def update(self, keys_pressed, world_width, world_height):
+        self.velocity_x *= self.drag_coefficient
+        self.velocity_y *= self.drag_coefficient
+
+        self.rect.x += self.velocity_x
+        self.rect.y += self.velocity_y
+
         self.rect.x = max(0, min(world_width - self.rect.width, self.rect.x))
         self.rect.y = max(0, min(world_height - self.rect.height, self.rect.y))
 
