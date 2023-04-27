@@ -1,9 +1,10 @@
 from pygame.locals import *
-from space_object import SpaceObject
+
+from src.space_object import SpaceObject
 
 class Spacecraft(SpaceObject):
     def __init__(self, screen_width, screen_height):
-        super().__init__('../resources/spacecraft.png', screen_width, screen_height)
+        super().__init__('spacecraft', screen_width, screen_height)
         self.speed = 2
         self.max_hp = 100
         self.hp = self.max_hp

@@ -1,12 +1,13 @@
 import random
 from pygame.locals import *
-from space_object import SpaceObject
-from projectile import *
-from state import PatrollingState, AttackingState
+
+from src.space_object import SpaceObject
+from src.projectile import *
+from src.state import PatrollingState, AttackingState
 
 class Enemy(SpaceObject):
     def __init__(self, screen_width, screen_height, player, enemy_projectiles, all_sprites):
-        super().__init__('../resources/enemy.png', screen_width, screen_height)
+        super().__init__('enemy', screen_width, screen_height)
         self.rect.x = random.randint(0, screen_width - self.rect.width)
         self.rect.y = random.randint(0, screen_height - self.rect.height)
         self.move_counter = 0

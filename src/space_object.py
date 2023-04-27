@@ -1,10 +1,12 @@
 import pygame
 from pygame.locals import *
 
+import settings
+
 class SpaceObject(pygame.sprite.Sprite):
-    def __init__(self, image_path, screen_width, screen_height):
+    def __init__(self, image_name, screen_width, screen_height):
         super().__init__()
-        self.original_image = pygame.image.load(image_path).convert()
+        self.original_image = settings.TEXTURES[image_name].convert()
         width, height = self.original_image.get_size()
         self.image_scale_ratio = 3
         self.original_image = pygame.transform.scale(self.original_image, 
