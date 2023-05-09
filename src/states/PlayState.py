@@ -33,11 +33,11 @@ class PlayState(BaseState):
         keys_pressed = pygame.key.get_pressed()
 
         if keys_pressed[K_SPACE] and self.spacecraft.alive():
-            proj = Projectile(self.spacecraft.rect.centerx, self.spacecraft.rect.centery, self.spacecraft.angle)
+            proj = Projectile(self.spacecraft.rect.centerx, self.spacecraft.rect.centery, self.spacecraft.angle, speed=100)
             self.player_projectiles.add(proj)
             self.all_sprites.add(proj)
 
-        self.all_sprites.update(keys_pressed, settings.WORLD_WIDTH, settings.WORLD_HEIGHT)
+        self.all_sprites.update(keys_pressed, dt)
         self.camera_x, self.camera_y = get_camera_position(self.spacecraft, settings.WINDOW_WIDTH, settings.WINDOW_HEIGHT, settings.WORLD_WIDTH, settings.WORLD_HEIGHT, self.camera_x, self.camera_y)
 
         for proj in self.enemy_projectiles:
@@ -58,8 +58,6 @@ class PlayState(BaseState):
         surface.blit(settings.TEXTURES["background"], (self.camera_x, self.camera_y))
 
         for sprite in self.all_sprites:
-            # if isinstance(sprite, Spacecraft):
-            #     print('rendering spacecraft')
             surface.blit(sprite.image, sprite.rect.move(self.camera_x, self.camera_y))
             if isinstance(sprite, SpaceObject):
                 sprite.draw_health_bar(surface, self.camera_x, self.camera_y)

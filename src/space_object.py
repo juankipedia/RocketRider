@@ -32,15 +32,15 @@ class SpaceObject(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=self.rect.center)
 
 
-    def update(self, keys_pressed, world_width, world_height):
+    def update(self, keys_pressed, dt: float):
         self.velocity_x *= self.drag_coefficient
         self.velocity_y *= self.drag_coefficient
 
-        self.rect.x += self.velocity_x
-        self.rect.y += self.velocity_y
+        self.rect.x = self.rect.x + self.velocity_x * dt
+        self.rect.y = self.rect.y + self.velocity_y * dt
 
-        self.rect.x = max(0, min(world_width - self.rect.width, self.rect.x))
-        self.rect.y = max(0, min(world_height - self.rect.height, self.rect.y))
+        self.rect.x = max(0, min(settings.WORLD_WIDTH - self.rect.width, self.rect.x))
+        self.rect.y = max(0, min(settings.WORLD_HEIGHT - self.rect.height, self.rect.y))
 
     def take_damage(self, damage):
         self.hp -= damage

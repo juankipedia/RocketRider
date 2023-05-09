@@ -22,19 +22,19 @@ class PatrollingState(State):
         self.enemy.rotation_counter = 0
         self.enemy.target_angle = 0
 
-    def update(self):
+    def update(self, dt: float):
         if self.enemy.move_counter <= 0:
             self.enemy.move_direction = random.choice(['UP', 'DOWN', 'LEFT', 'RIGHT', 'STAY'])
             self.enemy.move_counter = random.randint(50, 100)
 
         if self.enemy.move_direction == 'UP' and self.enemy.rect.top > 0:
-            self.enemy.rect.y -= self.enemy.speed
+            self.enemy.velocity_y =  self.enemy.velocity_y - self.enemy.acceleration * dt
         elif self.enemy.move_direction == 'DOWN' and self.enemy.rect.bottom < self.enemy.screen_height:
-            self.enemy.rect.y += self.enemy.speed
+            self.enemy.velocity_y = self.enemy.velocity_y + self.enemy.acceleration * dt
         elif self.enemy.move_direction == 'LEFT' and self.enemy.rect.left > 0:
-            self.enemy.rect.x -= self.enemy.speed
+            self.enemy.velocity_x = self.enemy.velocity_x - self.enemy.acceleration * dt
         elif self.enemy.move_direction == 'RIGHT' and self.enemy.rect.right < self.enemy.screen_width:
-            self.enemy.rect.x += self.enemy.speed
+            self.enemy.velocity_x = self.enemy.velocity_x + self.enemy.acceleration * dt
 
         if self.enemy.rotation_counter <= 0:
             self.enemy.rotation_counter = random.randint(30, 120)
@@ -49,7 +49,7 @@ class PatrollingState(State):
 
 
 class AttackingState(State):
-    def update(self):
+    def update(self, dt: float):
         dx = self.enemy.target.rect.centerx - self.enemy.rect.centerx
         dy = self.enemy.target.rect.centery - self.enemy.rect.centery
         target_angle = math.degrees(math.atan2(-dy, dx))

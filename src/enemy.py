@@ -17,7 +17,7 @@ class Enemy(SpaceObject):
         self.shoot_timer = random.randint(30, 120)
         self.max_hp = 50
         self.hp = self.max_hp
-        self.acceleration = 0.05
+        self.acceleration = 50
         self.drag_coefficient = 0.98
         self.state = PatrollingState(self)
         self.state.enter()
@@ -31,7 +31,7 @@ class Enemy(SpaceObject):
         dy = self.rect.centery - other_object.rect.centery
         return (dx ** 2 + dy ** 2) ** 0.5
 
-    def update(self, keys_pressed, world_width, world_height):
+    def update(self, keys_pressed, dt: float):
         distance_to_player = self.get_distance_to_object(self.target)
         if distance_to_player < self.attack_range and not isinstance(self.state, AttackingState):
             self.state.exit()
@@ -42,8 +42,8 @@ class Enemy(SpaceObject):
             self.state = PatrollingState(self)
             self.state.enter()
 
-        self.state.update()
-        super().update(keys_pressed, world_width, world_height)
+        self.state.update(dt)
+        super().update(keys_pressed, dt)
 
 
     def shoot(self, n_projectiles=10, angle_range=30):
@@ -52,6 +52,6 @@ class Enemy(SpaceObject):
         projectiles = []
         for i in range(n_projectiles):
             angle = base_angle + angle_step * i
-            proj = Projectile(self.rect.centerx, self.rect.centery, angle, color=(255, 0, 0))
+            proj = Projectile(self.rect.centerx, self.rect.centery, angle, speed=100, color=(255, 0, 0))
             projectiles.append(proj)
         return projectiles
