@@ -2,6 +2,8 @@ import math
 import pygame
 
 import settings
+
+
 class Projectile(pygame.sprite.Sprite):
     def __init__(self, x, y, angle, speed=10, color=(255, 255, 255)):
         super().__init__()
@@ -14,11 +16,16 @@ class Projectile(pygame.sprite.Sprite):
         self.angle = angle
         self.speed = speed
 
-    def update(self, key_pressed, dt: float):
+    def update(self, dt: float):
         dx = self.speed * math.cos(math.radians(self.angle))
         dy = self.speed * math.sin(math.radians(self.angle))
         self.rect.x = self.rect.x + dx * dt
         self.rect.y = self.rect.y - dy * dt
 
-        if self.rect.x < 0 or self.rect.x >= settings.WORLD_WIDTH or self.rect.y < 0 or self.rect.y >= settings.WORLD_HEIGHT:
+        if (
+            self.rect.x < 0
+            or self.rect.x >= settings.WORLD_WIDTH
+            or self.rect.y < 0
+            or self.rect.y >= settings.WORLD_HEIGHT
+        ):
             self.kill()

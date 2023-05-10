@@ -3,36 +3,38 @@ from pygame.locals import *
 
 import settings
 
+
 class SpaceObject(pygame.sprite.Sprite):
     def __init__(self, image_name, screen_width, screen_height):
         super().__init__()
         self.original_image = settings.TEXTURES[image_name].convert()
         width, height = self.original_image.get_size()
         self.image_scale_ratio = 3
-        self.original_image = pygame.transform.scale(self.original_image, 
-                                                     (width // self.image_scale_ratio, height // self.image_scale_ratio))
+        self.original_image = pygame.transform.scale(
+            self.original_image,
+            (width // self.image_scale_ratio, height // self.image_scale_ratio),
+        )
         self.original_image = self.original_image.convert_alpha()
         self.image = self.original_image
         self.rect = self.image.get_rect()
         self.rect.inflate_ip(-5, -5)
         self.rect.x = screen_width // 2
         self.rect.y = screen_height // 2
-        self.speed = 1
         self.angle = 0
         self.screen_width = screen_width
         self.screen_height = screen_height
-        self.acceleration = 0
+        self.acceleration_x = 0
+        self.acceleration_y = 0
         self.velocity_x = 0
         self.velocity_y = 0
         self.drag_coefficient = 1
 
-    def rotate(self, angle):
+    def rotate(self, angle: float) -> None:
         self.angle += angle
         self.image = pygame.transform.rotate(self.original_image, self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)
 
-
-    def update(self, keys_pressed, dt: float):
+    def update(self, dt: float) -> None:
         self.velocity_x *= self.drag_coefficient
         self.velocity_y *= self.drag_coefficient
 
@@ -42,12 +44,12 @@ class SpaceObject(pygame.sprite.Sprite):
         self.rect.x = max(0, min(settings.WORLD_WIDTH - self.rect.width, self.rect.x))
         self.rect.y = max(0, min(settings.WORLD_HEIGHT - self.rect.height, self.rect.y))
 
-    def take_damage(self, damage):
+    def take_damage(self, damage: float) -> None:
         self.hp -= damage
         if self.hp <= 0:
             self.kill()
 
-    def draw_health_bar(self, screen, camera_x, camera_y):
+    def draw_health_bar(self, screen: pygame.Surface, camera_x: int, camera_y: int) -> None:
         hp_bar_width = self.rect.width
         hp_bar_height = 5
         hp_bar_color = (255, 0, 0)

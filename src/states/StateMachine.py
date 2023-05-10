@@ -16,6 +16,9 @@ class StateMachine:
         self.current = self.states[state_name](self)
         self.current.enter(*args, **kwargs)
 
+    def handle_inputs(self, event: pygame.event.Event):
+        self.current.handle_inputs(event)
+
     def update(self, dt: float) -> None:
         self.current.update(dt)
 

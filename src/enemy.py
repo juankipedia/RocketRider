@@ -31,7 +31,7 @@ class Enemy(SpaceObject):
         dy = self.rect.centery - other_object.rect.centery
         return (dx ** 2 + dy ** 2) ** 0.5
 
-    def update(self, keys_pressed, dt: float):
+    def update(self, dt: float):
         distance_to_player = self.get_distance_to_object(self.target)
         if distance_to_player < self.attack_range and not isinstance(self.state, AttackingState):
             self.state.exit()
@@ -43,7 +43,7 @@ class Enemy(SpaceObject):
             self.state.enter()
 
         self.state.update(dt)
-        super().update(keys_pressed, dt)
+        super().update(dt)
 
 
     def shoot(self, n_projectiles=10, angle_range=30):

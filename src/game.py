@@ -51,6 +51,9 @@ class Game:
 
         self.state_machine.change("play")
 
+    def handle_inputs(self, event: pygame.event.Event):
+        self.state_machine.handle_inputs(event)
+
     def update(self, dt: float) -> None:
         self.state_machine.update(dt)
 
@@ -75,8 +78,8 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
-                # elif event.type in INPUT_EVENTS:
-                #     InputHandler.handle_input(event)
+                else:
+                    self.handle_inputs(event)
 
             dt = self.clock.tick(self.fps) / 1000.0
             self.__update(dt)
