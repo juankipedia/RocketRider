@@ -1,5 +1,6 @@
 import random
-from pygame.locals import *
+
+import settings
 
 from src.space_object import SpaceObject
 from src.projectile import *
@@ -15,13 +16,13 @@ class Enemy(SpaceObject):
         self.rotation_counter = 0
         self.target_angle = 0
         self.shoot_timer = random.randint(30, 120)
-        self.max_hp = 50
+        self.max_hp = settings.ENEMY_HP
         self.hp = self.max_hp
-        self.acceleration = 50
-        self.drag_coefficient = 0.98
+        self.acceleration = settings.ENEMY_ACCELERATION
+        self.drag_coefficient = settings.ENEMY_DRAG_COEFFICIENT
         self.state = PatrollingState(self)
         self.state.enter()
-        self.attack_range = 300
+        self.attack_range = settings.ENEMY_ATTACK_RANGE
         self.target = player
         self.projectile_group = enemy_projectiles
         self.all_sprites = all_sprites 
@@ -52,6 +53,6 @@ class Enemy(SpaceObject):
         projectiles = []
         for i in range(n_projectiles):
             angle = base_angle + angle_step * i
-            proj = Projectile(self.rect.centerx, self.rect.centery, angle, speed=100, color=(255, 0, 0))
+            proj = Projectile(self.rect.centerx, self.rect.centery, angle, speed=settings.ENEMY_PROYECTILE_SPEED, color=(255, 0, 0))
             projectiles.append(proj)
         return projectiles
