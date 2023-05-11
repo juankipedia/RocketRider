@@ -9,6 +9,7 @@ from src import states
 
 pygame.init()
 
+
 class Game:
     def __init__(
         self,
@@ -44,12 +45,10 @@ class Game:
 
     def init(self) -> None:
         self.state_machine = states.StateMachine(
-            {
-                "play": states.PlayState
-            }
+            {"play": states.PlayState, "start": states.StartState}
         )
 
-        self.state_machine.change("play")
+        self.state_machine.change("start")
 
     def handle_inputs(self, event: pygame.event.Event):
         self.state_machine.handle_inputs(event)
