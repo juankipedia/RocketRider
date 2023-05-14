@@ -44,6 +44,7 @@ class PlayState(BaseState):
                 self.spacecraft.take_damage(2)
                 if self.spacecraft.hp <= 0:
                     self.spacecraft.kill()
+                    self.state_machine.change("game_over", win=False)
 
         for proj in self.player_projectiles:
             if self.enemy.rect.colliderect(proj.rect):
@@ -51,6 +52,7 @@ class PlayState(BaseState):
                 self.enemy.take_damage(2)
                 if self.enemy.hp <= 0:
                     self.enemy.kill()
+                    self.state_machine.change("game_over", win=True)
 
     def render(self, surface: pygame.Surface) -> None:
         surface.blit(settings.TEXTURES["background"], (self.camera_x, self.camera_y))

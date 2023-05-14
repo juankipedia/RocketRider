@@ -45,7 +45,7 @@ class Game:
 
     def init(self) -> None:
         self.state_machine = states.StateMachine(
-            {"play": states.PlayState, "start": states.StartState}
+            {"play": states.PlayState, "start": states.StartState, "game_over": states.GameOverState}
         )
 
         self.state_machine.change("start")
