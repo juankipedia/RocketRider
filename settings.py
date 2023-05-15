@@ -33,25 +33,24 @@ BASE_DIR = Path(__file__).parent
 pygame.mixer.init()
 
 SOUNDS = {
-    "blip_select": pygame.mixer.Sound(BASE_DIR / "sounds" / "blip_Select.wav"),
-    "ready": pygame.mixer.Sound(BASE_DIR / "sounds" / "ready.mp3"),
+    "blip": pygame.mixer.Sound(BASE_DIR / "sounds" / "blip.wav"),
+    "select": pygame.mixer.Sound(BASE_DIR / "sounds" / "select.wav"),
+    "gameover_loud": pygame.mixer.Sound(BASE_DIR / "sounds" / "gameover_loud.mp3"),
+    "win_loud": pygame.mixer.Sound(BASE_DIR / "sounds" / "win_loud.mp3")
 }
 
 TEXTURES = {
-    "bg_main_menu": pygame.image.load(
-        BASE_DIR / "graphics" / "background.jpg"
-    ),
-    "header": pygame.image.load(BASE_DIR / "graphics" / "gui" / "header.png"),
-    "start_btn": pygame.image.load(BASE_DIR / "graphics" / "gui" / "start_btn.png"),
-    "exit_btn": pygame.image.load(BASE_DIR / "graphics" / "gui" / "exit_btn.png"),
-    "map_btn": pygame.image.load(BASE_DIR / "graphics" / "gui" / "map_btn.png"),
-    "info_btn": pygame.image.load(BASE_DIR / "graphics" / "gui" / "info_btn.png"),
-    "rating_btn": pygame.image.load(BASE_DIR / "graphics" / "gui" / "rating_btn.png"),
+    "header": pygame.image.load(BASE_DIR / "graphics" / "header.png"),
+    "start_btn": pygame.image.load(BASE_DIR / "graphics" / "start_btn.png"),
+    "exit_btn": pygame.image.load(BASE_DIR / "graphics" / "exit_btn.png"),
+    "map_btn": pygame.image.load(BASE_DIR / "graphics" / "map_btn.png"),
+    "info_btn": pygame.image.load(BASE_DIR / "graphics" / "info_btn.png"),
+    "rating_btn": pygame.image.load(BASE_DIR / "graphics" / "rating_btn.png"),
     "settings_btn": pygame.image.load(
-        BASE_DIR / "graphics" / "gui" / "settings_btn.png"
+        BASE_DIR / "graphics" / "settings_btn.png"
     ),
-    "faq_btn": pygame.image.load(BASE_DIR / "graphics" / "gui" / "faq_btn.png"),
-    "arrow": pygame.image.load(BASE_DIR / "graphics" / "gui" / "arrow.png"),
+    "faq_btn": pygame.image.load(BASE_DIR / "graphics" /  "faq_btn.png"),
+    "arrow": pygame.image.load(BASE_DIR / "graphics" / "arrow.png"),
     "close_btn": pygame.image.load(BASE_DIR / "graphics" / "close_btn.png"),
     "record": pygame.image.load(BASE_DIR / "graphics" / "record.png"),
     "replay_btn": pygame.image.load(BASE_DIR / "graphics" / "replay_btn.png"),
@@ -64,7 +63,7 @@ TEXTURES = {
     "play_btn": pygame.image.load(BASE_DIR / "graphics" / "play_btn.png"),
     "table": pygame.image.load(BASE_DIR / "graphics" / "table.png"),
     "window": pygame.image.load(BASE_DIR / "graphics" / "window.png"),
-    "background": pygame.image.load(BASE_DIR / "graphics" / "background.jpg"),
+    "background": pygame.image.load(BASE_DIR / "graphics" / "background.png"),
     "spacecraft": pygame.image.load(BASE_DIR / "graphics" / "spacecraft.png"),
     "enemy": pygame.image.load(BASE_DIR / "graphics" / "enemy.png"),
 }
