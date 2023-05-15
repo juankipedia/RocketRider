@@ -38,6 +38,12 @@ class Game:
         # Creating the virtual screen
         self.render_surface = pygame.Surface((self.virtual_width, self.virtual_height))
         self.clock = pygame.time.Clock()
+        
+        # Creating the background surface
+        self.background_surface = pygame.Surface((self.virtual_width, self.virtual_height * 2))
+        self.background_surface.blit(settings.TEXTURES["background"], (0, 0))
+        self.background_surface.blit(settings.TEXTURES["background"], (0, self.virtual_height))
+        self.background_y = self.virtual_height
 
         self.running: bool = False
 
@@ -57,9 +63,15 @@ class Game:
         self.state_machine.update(dt)
 
     def render(self, render_surface: pygame.Surface) -> None:
+        render_surface.blit(self.background_surface, (0, -self.background_y))
         self.state_machine.render(render_surface)
 
     def __update(self, dt: float) -> None:
+        self.background_y -= 1
+
+        if self.background_y < 0:
+            self.background_y = self.virtual_height
+        
         self.update(dt)
 
     def __render(self) -> None:

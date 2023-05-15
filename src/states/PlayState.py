@@ -25,8 +25,12 @@ class PlayState(BaseState):
         self.all_sprites.add(self.enemy)
         self.camera_x, self.camera_y = 0, 0
 
+        pygame.mixer_music.load(settings.BASE_DIR / "sounds" / "battle.wav")
+        pygame.mixer_music.play(loops=-1)
+
     def exit(self) -> None:
-        pass
+        pygame.mixer_music.stop()
+
     
     def handle_inputs(self, event: pygame.event.Event):
         self.spacecraft.handle_inputs(event)
@@ -55,8 +59,6 @@ class PlayState(BaseState):
                     self.state_machine.change("game_over", win=True)
 
     def render(self, surface: pygame.Surface) -> None:
-        surface.blit(settings.TEXTURES["background"], (self.camera_x, self.camera_y))
-
         for sprite in self.all_sprites:
             surface.blit(sprite.image, sprite.rect.move(self.camera_x, self.camera_y))
             if isinstance(sprite, SpaceObject):

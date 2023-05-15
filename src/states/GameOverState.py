@@ -9,7 +9,11 @@ from src.utilities.text import render_text_img
 
 class GameOverState(BaseState):
     def enter(self, *args: Tuple[Any], **kwargs: Dict[str, Any]) -> None:
-        self.you_win = kwargs.get("win", False)
+        self.win = kwargs.get("win", False)
+        if self.win:
+            settings.SOUNDS["win_loud"].play()
+        else:
+            settings.SOUNDS["gameover_loud"].play()
 
     def exit(self) -> None:
         pass
@@ -24,10 +28,9 @@ class GameOverState(BaseState):
         table_rect = settings.TEXTURES["table"].get_rect()
         record_rect = settings.TEXTURES["record"].get_rect()
 
-        surface.blit(settings.TEXTURES["background"], (0, 0))
         render_text_img(surface, settings.TEXTURES["window"], settings.VIRTUAL_WIDTH // 2, settings.VIRTUAL_HEIGHT // 2, center=True)
         
-        if (self.you_win):
+        if (self.win):
             render_text_img(surface, settings.TEXTURES["you_win"], settings.VIRTUAL_WIDTH // 2, 70, center=True)
         else:
             render_text_img(surface, settings.TEXTURES["you_lose"], settings.VIRTUAL_WIDTH // 2, 70, center=True)
