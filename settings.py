@@ -82,10 +82,10 @@ TEXTURES = {
 }
 
 FRAMES = {
-    "spaceship": generate_frames(),
-    "boosters": generate_frames(),
-    "boosters_left": generate_frames(),
-    "boosters_right": generate_frames(),
+    "spaceship": generate_frames(3, SPACESHIP_WIDTH, SPACESHIP_HEIGHT),
+    "boosters": generate_frames(3, BOOSTERS_WIDTH, BOOSTERS_HEIGHT),
+    "boosters_left": generate_frames(3, BOOSTERS_WIDTH, BOOSTERS_HEIGHT),
+    "boosters_right": generate_frames(3, BOOSTERS_WIDTH, BOOSTERS_HEIGHT),
 }
 
 pygame.font.init()
