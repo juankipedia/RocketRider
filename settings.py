@@ -35,6 +35,8 @@ BOOSTERS_OFFSET_X = 0.0
 BOOSTERS_OFFSET_Y = 15.0
 
 # Enemy
+ENEMY_WIDTH = 16
+ENEMY_HEIGHT = 16
 ENEMY_HP = 50
 ENEMY_ACCELERATION = 200
 ENEMY_PROYECTILE_SPEED = 100
@@ -58,6 +60,9 @@ TEXTURES = {
     "boosters": pygame.image.load(BASE_DIR / "graphics" / "boosters.png"),
     "boosters_left": pygame.image.load(BASE_DIR / "graphics" / "boosters_left.png"),
     "boosters_right": pygame.image.load(BASE_DIR / "graphics" / "boosters_right.png"),
+    "alan": pygame.image.load(BASE_DIR / "graphics" / "alan.png"),
+    "bon_bon": pygame.image.load(BASE_DIR / "graphics" / "bon_bon.png"),
+    "lips": pygame.image.load(BASE_DIR / "graphics" / "lips.png"),
     "header": pygame.image.load(BASE_DIR / "graphics" / "header.png"),
     "start_btn": pygame.image.load(BASE_DIR / "graphics" / "start_btn.png"),
     "exit_btn": pygame.image.load(BASE_DIR / "graphics" / "exit_btn.png"),
