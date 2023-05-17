@@ -4,7 +4,7 @@ import pygame
 
 import settings
 
-from .BaseState import BaseState
+from src.states.BaseState import BaseState
 from src.utilities.text import render_text_img
 
 class GameOverState(BaseState):

@@ -5,10 +5,10 @@ from typing import Optional, Tuple, Dict, Any
 import pygame
 
 import settings
-from src import states
+from src.states.StateMachine import StateMachine
+from src.states.game_states import PlayState, StartState, GameOverState
 
 pygame.init()
-
 
 class Game:
     def __init__(
@@ -41,8 +41,14 @@ class Game:
         
         # Creating the background surface
         self.background_surface = pygame.Surface((self.virtual_width, self.virtual_height * 2))
-        self.background_surface.blit(settings.TEXTURES["background"], (0, 0))
-        self.background_surface.blit(settings.TEXTURES["background"], (0, self.virtual_height))
+        background_width = settings.TEXTURES["background"].get_width()
+        background_height = settings.TEXTURES["background"].get_height()
+
+        for k in range(2):
+            for x in range(0, self.virtual_width, background_width):
+                for y in range(0, self.virtual_height, background_height):
+                    self.background_surface.blit(settings.TEXTURES["background"], (x, k * self.virtual_height + y))
+        
         self.background_y = self.virtual_height
 
         self.running: bool = False
@@ -50,11 +56,11 @@ class Game:
         self.init()
 
     def init(self) -> None:
-        self.state_machine = states.StateMachine(
-            {"play": states.PlayState, "start": states.StartState, "game_over": states.GameOverState}
+        self.state_machine = StateMachine(
+            {"play": PlayState, "start": StartState, "game_over": GameOverState}
         )
 
-        self.state_machine.change("start")
+        self.state_machine.change("play")
 
     def handle_inputs(self, event: pygame.event.Event):
         self.state_machine.handle_inputs(event)
@@ -67,7 +73,7 @@ class Game:
         self.state_machine.render(render_surface)
 
     def __update(self, dt: float) -> None:
-        self.background_y -= 1
+        self.background_y -= settings.SCROLL_SPEED * dt
 
         if self.background_y < 0:
             self.background_y = self.virtual_height

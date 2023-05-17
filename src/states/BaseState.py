@@ -11,6 +11,9 @@ class BaseState:
 
     def exit(self) -> None:
         pass
+    
+    def handle_inputs(self, event: pygame.event.Event):
+        pass
 
     def update(self, dt: float) -> None:
         pass

@@ -1,6 +1,6 @@
 import settings
 
-from src.game import Game
+from src.Game import Game
 
 if __name__ == "__main__":
     game = Game(
