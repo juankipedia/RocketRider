@@ -2,28 +2,41 @@ from pathlib import Path
 
 import pygame
 
+from src.utilities import generate_frames
+
 # Window size
-WINDOW_WIDTH = 1920
-WINDOW_HEIGHT = 1080
+WINDOW_WIDTH = 1280
+WINDOW_HEIGHT = 720
 
 # Virtual Window size
-VIRTUAL_WIDTH = 1920
-VIRTUAL_HEIGHT = 1080
+VIRTUAL_WIDTH = 512
+VIRTUAL_HEIGHT = 288
 
 # World dimensions
 WORLD_WIDTH = 1920
 WORLD_HEIGHT = 1080
 
-# Spacecraft
-SPACECRAFT_ACCELERATION = 600
-SPACECRAFT_HP = 100
-SPACECRAFT_PROYECTILE_SPEED = 100
-SPACECRAFT_DRAG_COEFFICIENT = 0.98
-SPACECRAFT_ROTATION_DEGREES = 3.0
+# Background
+SCROLL_SPEED = 50
+
+# Spaceship
+SPACESHIP_WIDTH = 16
+SPACESHIP_HEIGHT = 16
+SPACESHIP_HP = 100
+SPACESHIP_ACCELERATION = 100
+SPACESHIP_PROYECTILE_SPEED = 100
+SPACESHIP_DRAG_COEFFICIENT = 0.98
+SPACESHIP_ROTATION_DEGREES = 3
+
+# Boosters
+BOOSTERS_WIDTH = 16
+BOOSTERS_HEIGHT = 16
+BOOSTERS_OFFSET_X = 0.0
+BOOSTERS_OFFSET_Y = 15.0
 
 # Enemy
-ENEMY_ACCELERATION = 200
 ENEMY_HP = 50
+ENEMY_ACCELERATION = 200
 ENEMY_PROYECTILE_SPEED = 100
 ENEMY_DRAG_COEFFICIENT = 0.98
 ENEMY_ATTACK_RANGE = 300
@@ -36,20 +49,23 @@ SOUNDS = {
     "blip": pygame.mixer.Sound(BASE_DIR / "sounds" / "blip.wav"),
     "select": pygame.mixer.Sound(BASE_DIR / "sounds" / "select.wav"),
     "gameover_loud": pygame.mixer.Sound(BASE_DIR / "sounds" / "gameover_loud.mp3"),
-    "win_loud": pygame.mixer.Sound(BASE_DIR / "sounds" / "win_loud.mp3")
+    "win_loud": pygame.mixer.Sound(BASE_DIR / "sounds" / "win_loud.mp3"),
 }
 
 TEXTURES = {
+    "background": pygame.image.load(BASE_DIR / "graphics" / "background.png"),
+    "spaceship": pygame.image.load(BASE_DIR / "graphics" / "spaceship.png"),
+    "boosters": pygame.image.load(BASE_DIR / "graphics" / "boosters.png"),
+    "boosters_left": pygame.image.load(BASE_DIR / "graphics" / "boosters_left.png"),
+    "boosters_right": pygame.image.load(BASE_DIR / "graphics" / "boosters_right.png"),
     "header": pygame.image.load(BASE_DIR / "graphics" / "header.png"),
     "start_btn": pygame.image.load(BASE_DIR / "graphics" / "start_btn.png"),
     "exit_btn": pygame.image.load(BASE_DIR / "graphics" / "exit_btn.png"),
     "map_btn": pygame.image.load(BASE_DIR / "graphics" / "map_btn.png"),
     "info_btn": pygame.image.load(BASE_DIR / "graphics" / "info_btn.png"),
     "rating_btn": pygame.image.load(BASE_DIR / "graphics" / "rating_btn.png"),
-    "settings_btn": pygame.image.load(
-        BASE_DIR / "graphics" / "settings_btn.png"
-    ),
-    "faq_btn": pygame.image.load(BASE_DIR / "graphics" /  "faq_btn.png"),
+    "settings_btn": pygame.image.load(BASE_DIR / "graphics" / "settings_btn.png"),
+    "faq_btn": pygame.image.load(BASE_DIR / "graphics" / "faq_btn.png"),
     "arrow": pygame.image.load(BASE_DIR / "graphics" / "arrow.png"),
     "close_btn": pygame.image.load(BASE_DIR / "graphics" / "close_btn.png"),
     "record": pygame.image.load(BASE_DIR / "graphics" / "record.png"),
@@ -63,12 +79,14 @@ TEXTURES = {
     "play_btn": pygame.image.load(BASE_DIR / "graphics" / "play_btn.png"),
     "table": pygame.image.load(BASE_DIR / "graphics" / "table.png"),
     "window": pygame.image.load(BASE_DIR / "graphics" / "window.png"),
-    "background": pygame.image.load(BASE_DIR / "graphics" / "background.png"),
-    "spacecraft": pygame.image.load(BASE_DIR / "graphics" / "spacecraft.png"),
-    "enemy": pygame.image.load(BASE_DIR / "graphics" / "enemy.png"),
 }
 
-FRAMES = {}
+FRAMES = {
+    "spaceship": generate_frames(),
+    "boosters": generate_frames(),
+    "boosters_left": generate_frames(),
+    "boosters_right": generate_frames(),
+}
 
 pygame.font.init()
 
