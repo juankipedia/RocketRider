@@ -1,16 +1,12 @@
-def lerp(a, b, t):
-    return a + (b - a) * t
+import pygame
 
-def get_camera_position(spacecraft, SCREEN_WIDTH, SCREEN_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT, camera_x, camera_y, smoothness=0.05):
-    target_x = -spacecraft.rect.x + SCREEN_WIDTH // 2
-    target_y = -spacecraft.rect.y + SCREEN_HEIGHT // 2
 
-    target_x = min(0, target_x)
-    target_y = min(0, target_y)
-    target_x = max(-(WORLD_WIDTH - SCREEN_WIDTH), target_x)
-    target_y = max(-(WORLD_HEIGHT - SCREEN_HEIGHT), target_y)
+class Camera:
+    def __init__(self, x: int, y: int, width: int, height: int) -> None:
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
 
-    x = lerp(camera_x, target_x, smoothness)
-    y = lerp(camera_y, target_y, smoothness)
-
-    return round(x), round(y)
+    def get_rect(self) -> pygame.Rect:
+        return pygame.Rect(self.x, self.y, self.width, self.height)
