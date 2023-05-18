@@ -1,3 +1,4 @@
 from .PatrollState import PatrollState
+from .ChaseState import ChaseState
 
-(PatrollState)
+(PatrollState, ChaseState)
