@@ -91,6 +91,9 @@ FRAMES = {
     "boosters": generate_frames(3, BOOSTERS_WIDTH, BOOSTERS_HEIGHT),
     "boosters_left": generate_frames(3, BOOSTERS_WIDTH, BOOSTERS_HEIGHT),
     "boosters_right": generate_frames(3, BOOSTERS_WIDTH, BOOSTERS_HEIGHT),
+    "alan": generate_frames(6, ENEMY_WIDTH, ENEMY_HEIGHT),
+    "bon_bon": generate_frames(4, ENEMY_WIDTH, ENEMY_HEIGHT),
+    "lips": generate_frames(5, ENEMY_WIDTH, ENEMY_HEIGHT)
 }
 
 pygame.font.init()
