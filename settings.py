@@ -25,6 +25,8 @@ SPACESHIP_HEIGHT = 16
 SPACESHIP_HP = 100
 SPACESHIP_ACCELERATION = 100
 SPACESHIP_PROYECTILE_SPEED = 100
+SPACESHIP_PROYECTILE_WIDTH = 16
+SPACESHIP_PROYECTILE_HEIGHT = 16
 SPACESHIP_DRAG_COEFFICIENT = 0.98
 SPACESHIP_ROTATION_DEGREES = 3
 
@@ -40,6 +42,8 @@ ENEMY_HEIGHT = 16
 ENEMY_HP = 50
 ENEMY_ACCELERATION = 200
 ENEMY_PROYECTILE_SPEED = 100
+ENEMY_PROYECTILE_WIDTH = 16
+ENEMY_PROYECTILE_HEIGHT = 16
 ENEMY_DRAG_COEFFICIENT = 0.98
 ENEMY_ATTACK_RANGE = 300
 
@@ -63,6 +67,14 @@ TEXTURES = {
     "alan": pygame.image.load(BASE_DIR / "graphics" / "alan.png"),
     "bon_bon": pygame.image.load(BASE_DIR / "graphics" / "bon_bon.png"),
     "lips": pygame.image.load(BASE_DIR / "graphics" / "lips.png"),
+    "enemy_projectile": pygame.image.load(BASE_DIR / "graphics" / "enemy_projectile.png"),
+    "player_beam": pygame.image.load(BASE_DIR / "graphics" / "player_beam.png"),
+    "player_charged_beam": pygame.image.load(BASE_DIR / "graphics" / "player_charged_beam.png"),
+    "player_charged_donut_shot": pygame.image.load(BASE_DIR / "graphics" / "player_charged_donut_shot.png"),
+    "player_charged_square_shot": pygame.image.load(BASE_DIR / "graphics" / "player_charged_square_shot.png"),
+    "player_donut_shot": pygame.image.load(BASE_DIR / "graphics" / "player_donut_shot.png"),
+    "player_missile_shots": pygame.image.load(BASE_DIR / "graphics" / "player_missile_shots.png"),
+    "player_square_shot": pygame.image.load(BASE_DIR / "graphics" / "player_square_shot.png"),
     "header": pygame.image.load(BASE_DIR / "graphics" / "header.png"),
     "start_btn": pygame.image.load(BASE_DIR / "graphics" / "start_btn.png"),
     "exit_btn": pygame.image.load(BASE_DIR / "graphics" / "exit_btn.png"),
@@ -93,7 +105,15 @@ FRAMES = {
     "boosters_right": generate_frames(3, BOOSTERS_WIDTH, BOOSTERS_HEIGHT),
     "alan": generate_frames(6, ENEMY_WIDTH, ENEMY_HEIGHT),
     "bon_bon": generate_frames(4, ENEMY_WIDTH, ENEMY_HEIGHT),
-    "lips": generate_frames(5, ENEMY_WIDTH, ENEMY_HEIGHT)
+    "lips": generate_frames(5, ENEMY_WIDTH, ENEMY_HEIGHT),
+    "enemy_projectile": generate_frames(4, ENEMY_PROYECTILE_WIDTH, ENEMY_PROYECTILE_HEIGHT),
+    "player_beam": generate_frames(1, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
+    "player_charged_beam": generate_frames(2, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
+    "player_charged_donut_shot": generate_frames(4, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
+    "player_charged_square_shot": generate_frames(8, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
+    "player_donut_shot": generate_frames(2, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
+    "player_missile_shots": generate_frames(16, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
+    "player_square_shot": generate_frames(4, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
 }
 
 pygame.font.init()
