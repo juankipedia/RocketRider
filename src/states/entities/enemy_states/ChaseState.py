@@ -9,23 +9,33 @@ from src.states.entities.BaseEntityState import BaseEntityState
 
 
 class ChaseState(BaseEntityState):
-    def enter(self, flipped: bool) -> None:
-        print('enter chase')
+    def enter(self) -> None:
         self.entity.change_animation("walk")
-        self.entity.vx = self.entity.vy = 0
+        self.entity.move_direction = random.choice(['left', 'right'])
+        
+        if self.entity.move_direction == 'left':
+            self.entity.vx = random.randint(-self.entity.walk_speed, 1)
+        elif self.entity.move_direction == 'right':
+            self.entity.vx = random.randint(1, self.entity.walk_speed)
+
+        self.entity.vy = random.randint(1, self.entity.walk_speed)
 
     def update(self, dt: float) -> None:
         # Calculate direction towards the player
-        dx = self.entity.player.x - self.entity.x
-        dy = self.entity.player.y - self.entity.y
+        # dx = self.entity.game_level.player.x - self.entity.x
+        # dy = self.entity.game_level.player.y - self.entity.y
 
         # Normalize the direction vector
-        distance = math.sqrt(dx**2 + dy**2)
-        if distance != 0:
-            dx /= distance
-            dy /= distance
+        # distance = math.sqrt(dx**2 + dy**2)
+        # if distance != 0:
+        #     dx /= distance
+        #     dy /= distance
 
-        # Update enemy's velocity based on the direction
-        speed = self.entity.walk_speed
-        self.entity.vx = dx * speed
-        self.entity.vy = dy * speed
+        if self.__check_boundaries():
+            self.entity.vx *= -1
+
+    def __check_boundaries(self):
+        if self.entity.x + self.entity.width >= settings.WORLD_WIDTH or self.entity.x <= 0:
+            return True
+        
+        return False

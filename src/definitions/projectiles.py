@@ -6,8 +6,8 @@ from src.GameEntity import GameEntity
 def make_damage(projectile: Projectile, entity: GameEntity):
     projectile.in_play = False
     entity.hp -= projectile.damage
-    if (entity.hp <= 0):
-        entity.is_dead = True
+    if entity.hp <= 0:
+        entity.change_state("dead")
 
 PROJECTILES: Dict[str, Dict[str, Any]] = {
     "enemy_projectile_0": {

@@ -38,6 +38,7 @@ def render_text_img(
     img: pygame.Surface,
     x: float,
     y: float,
+    frame: pygame.Rect = None,
     center: bool = False,
 ):
     img_obj: pygame.Surface = img
@@ -49,4 +50,7 @@ def render_text_img(
         img_rect.x = x
         img_rect.y = y
 
-    surface.blit(img_obj, img_rect)
+    if frame is not None:
+        surface.blit(img_obj, img_rect, frame)
+    else:
+        surface.blit(img_obj, img_rect)

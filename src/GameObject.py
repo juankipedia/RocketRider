@@ -38,3 +38,6 @@ class GameObject(AnimatedMixin, CollidableMixin, DrawableMixin):
 
     def is_solid_on(self, side: str) -> bool:
         return self.solidness[side]
+    
+    def update(self, dt: float) -> None:
+        AnimatedMixin.update(self, dt)

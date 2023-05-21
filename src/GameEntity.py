@@ -27,7 +27,6 @@ class GameEntity(AnimatedMixin, CollidableMixin, DrawableMixin):
         self.texture_id = texture_id
         self.frame_index = -1
         self.game_level = game_level
-        # self.tilemap = self.game_level.tilemap
         self.state_machine = StateMachine(states)
         self.current_animation = None
         self.animations = {}

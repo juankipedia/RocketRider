@@ -5,16 +5,16 @@ import pygame
 from src.utilities import generate_frames
 
 # Window size
-WINDOW_WIDTH = 1280
-WINDOW_HEIGHT = 720
+WINDOW_WIDTH = 464
+WINDOW_HEIGHT = 928
 
 # Virtual Window size
-VIRTUAL_WIDTH = 512
-VIRTUAL_HEIGHT = 288
+VIRTUAL_WIDTH = 116
+VIRTUAL_HEIGHT = 232
 
 # World dimensions
-WORLD_WIDTH = 1920
-WORLD_HEIGHT = 1080
+WORLD_WIDTH = 116
+WORLD_HEIGHT = 232
 
 # Background
 SCROLL_SPEED = 50
@@ -22,9 +22,9 @@ SCROLL_SPEED = 50
 # Spaceship
 SPACESHIP_WIDTH = 16
 SPACESHIP_HEIGHT = 16
-SPACESHIP_HP = 100
-SPACESHIP_ACCELERATION = 100
-SPACESHIP_PROYECTILE_SPEED = 100
+SPACESHIP_HP = 3
+SPACESHIP_SPEED = 100
+SPACESHIP_PROYECTILE_SPEED = 300
 SPACESHIP_PROYECTILE_WIDTH = 16
 SPACESHIP_PROYECTILE_HEIGHT = 16
 SPACESHIP_DRAG_COEFFICIENT = 0.98
@@ -39,13 +39,13 @@ BOOSTERS_OFFSET_Y = 15.0
 # Enemy
 ENEMY_WIDTH = 16
 ENEMY_HEIGHT = 16
-ENEMY_HP = 50
-ENEMY_ACCELERATION = 200
+ENEMY_HP = 1
+ENEMY_SPEED = 100
 ENEMY_PROYECTILE_SPEED = 100
 ENEMY_PROYECTILE_WIDTH = 16
 ENEMY_PROYECTILE_HEIGHT = 16
 ENEMY_DRAG_COEFFICIENT = 0.98
-ENEMY_ATTACK_RANGE = 300
+ENEMY_ATTACK_RANGE = 50
 
 BASE_DIR = Path(__file__).parent
 
@@ -56,6 +56,10 @@ SOUNDS = {
     "select": pygame.mixer.Sound(BASE_DIR / "sounds" / "select.wav"),
     "gameover_loud": pygame.mixer.Sound(BASE_DIR / "sounds" / "gameover_loud.mp3"),
     "win_loud": pygame.mixer.Sound(BASE_DIR / "sounds" / "win_loud.mp3"),
+    "laser_shoot": pygame.mixer.Sound(BASE_DIR / "sounds" / "laser_shoot.wav"),
+    "laser_shoot2": pygame.mixer.Sound(BASE_DIR / "sounds" / "laser_shoot2.wav"),
+    "hit_hurt": pygame.mixer.Sound(BASE_DIR / "sounds" / "hit_hurt.wav"),
+    "hit_hurt2": pygame.mixer.Sound(BASE_DIR / "sounds" / "hit_hurt2.wav")
 }
 
 TEXTURES = {
@@ -75,6 +79,12 @@ TEXTURES = {
     "player_donut_shot": pygame.image.load(BASE_DIR / "graphics" / "player_donut_shot.png"),
     "player_missile_shots": pygame.image.load(BASE_DIR / "graphics" / "player_missile_shots.png"),
     "player_square_shot": pygame.image.load(BASE_DIR / "graphics" / "player_square_shot.png"),
+    "explosion": pygame.image.load(BASE_DIR / "graphics" / "explosion.png"),
+    "sparkle": pygame.image.load(BASE_DIR / "graphics" / "sparkle.png"),
+    "START": pygame.image.load(BASE_DIR / "graphics" / "START.png"),
+    "GAME_OVER": pygame.image.load(BASE_DIR / "graphics" / "GAME_OVER.png"),
+    "player_life_icon": pygame.image.load(BASE_DIR / "graphics" / "player_life_icon.png"),
+    "number_font": pygame.image.load(BASE_DIR / "graphics" / "number_font.png"),
     "header": pygame.image.load(BASE_DIR / "graphics" / "header.png"),
     "start_btn": pygame.image.load(BASE_DIR / "graphics" / "start_btn.png"),
     "exit_btn": pygame.image.load(BASE_DIR / "graphics" / "exit_btn.png"),
@@ -95,25 +105,30 @@ TEXTURES = {
     "you_win": pygame.image.load(BASE_DIR / "graphics" / "you_win.png"),
     "play_btn": pygame.image.load(BASE_DIR / "graphics" / "play_btn.png"),
     "table": pygame.image.load(BASE_DIR / "graphics" / "table.png"),
-    "window": pygame.image.load(BASE_DIR / "graphics" / "window.png"),
+    "window": pygame.image.load(BASE_DIR / "graphics" / "window.png")
 }
 
 FRAMES = {
-    "spaceship": generate_frames(3, SPACESHIP_WIDTH, SPACESHIP_HEIGHT),
-    "boosters": generate_frames(3, BOOSTERS_WIDTH, BOOSTERS_HEIGHT),
-    "boosters_left": generate_frames(3, BOOSTERS_WIDTH, BOOSTERS_HEIGHT),
-    "boosters_right": generate_frames(3, BOOSTERS_WIDTH, BOOSTERS_HEIGHT),
-    "alan": generate_frames(6, ENEMY_WIDTH, ENEMY_HEIGHT),
-    "bon_bon": generate_frames(4, ENEMY_WIDTH, ENEMY_HEIGHT),
-    "lips": generate_frames(5, ENEMY_WIDTH, ENEMY_HEIGHT),
-    "enemy_projectile": generate_frames(4, ENEMY_PROYECTILE_WIDTH, ENEMY_PROYECTILE_HEIGHT),
-    "player_beam": generate_frames(1, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
-    "player_charged_beam": generate_frames(2, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
-    "player_charged_donut_shot": generate_frames(4, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
-    "player_charged_square_shot": generate_frames(8, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
-    "player_donut_shot": generate_frames(2, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
-    "player_missile_shots": generate_frames(16, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
-    "player_square_shot": generate_frames(4, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
+    "spaceship": generate_frames(1, 3, SPACESHIP_WIDTH, SPACESHIP_HEIGHT),
+    "boosters": generate_frames(1, 3, BOOSTERS_WIDTH, BOOSTERS_HEIGHT),
+    "boosters_left": generate_frames(1, 3, BOOSTERS_WIDTH, BOOSTERS_HEIGHT),
+    "boosters_right": generate_frames(1, 3, BOOSTERS_WIDTH, BOOSTERS_HEIGHT),
+    "alan": generate_frames(1, 6, ENEMY_WIDTH, ENEMY_HEIGHT),
+    "bon_bon": generate_frames(1, 4, ENEMY_WIDTH, ENEMY_HEIGHT),
+    "lips": generate_frames(1, 5, ENEMY_WIDTH, ENEMY_HEIGHT),
+    "enemy_projectile": generate_frames(1, 4, ENEMY_PROYECTILE_WIDTH, ENEMY_PROYECTILE_HEIGHT),
+    "player_beam": generate_frames(1, 1, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
+    "player_charged_beam": generate_frames(1, 2, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
+    "player_charged_donut_shot": generate_frames(1, 4, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
+    "player_charged_square_shot": generate_frames(1, 8, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
+    "player_donut_shot": generate_frames(1, 2, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
+    "player_missile_shots": generate_frames(1, 16, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
+    "player_square_shot": generate_frames(1, 4, SPACESHIP_PROYECTILE_WIDTH, SPACESHIP_PROYECTILE_HEIGHT),
+    "explosion": generate_frames(1, 6, ENEMY_WIDTH, ENEMY_HEIGHT),
+    "sparkle": generate_frames(1, 5, ENEMY_WIDTH, ENEMY_HEIGHT),
+    "number_font": generate_frames(2, 5, 8, 8),
+    "player_life_icon": generate_frames(1, 1, 16, 16)
+
 }
 
 pygame.font.init()

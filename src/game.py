@@ -60,7 +60,7 @@ class Game:
             {"play": PlayState, "start": StartState, "game_over": GameOverState}
         )
 
-        self.state_machine.change("play")
+        self.state_machine.change("start")
 
     def handle_inputs(self, event: pygame.event.Event):
         self.state_machine.handle_inputs(event)

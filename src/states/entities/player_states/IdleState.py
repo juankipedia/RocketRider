@@ -2,6 +2,8 @@ from typing import TypeVar
 
 import pygame
 
+import settings
+
 from src.states.entities.BaseEntityState import BaseEntityState
 
 
@@ -25,6 +27,5 @@ class IdleState(BaseEntityState):
                 self.entity.change_state("move", "down")
             elif event.key == pygame.K_RIGHT:
                 self.entity.change_state("move", "right")
-
-    def update(self, dt: float) -> None:
-        pass
+            elif event.key == pygame.K_SPACE:
+                self.entity.change_state("attack")
